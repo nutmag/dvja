@@ -19,9 +19,10 @@ pipeline {
           sh 'mvn clean package'
           sh 'mvn sonar:sonar \
               mvn sonar:sonar \
+              mvn sonar:sonar \
               -Dsonar.projectKey=dvja \
               -Dsonar.host.url=http://vast.fruxlabs.com:9000 \
-              -Dsonar.login=eaebb92231967816842955cd13e27ec1afa95208'
+              -Dsonar.login=61829e4a1d9e43f1af407af8f7f870588e8e58f7'
         }
       }
     }
