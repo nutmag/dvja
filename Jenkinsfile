@@ -47,5 +47,13 @@ pipeline {
       sh 'mvn clean package'
        }
     }
+   stage ('Deploy-To-Tomcat') {
+            steps {
+           sshagent(['csserver']) {
+                sh 'scp -P 2200 -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/dvja/target/*.war csserver@62.171.148.41:/opt/tomcat/apache-tomcat-8.5.57/webapps/'
+              }      
+           }       
+    	}	  
+   	  
   }
 }
