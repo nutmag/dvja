@@ -21,15 +21,13 @@ pipeline {
       }
     }
     
-	stage ('Source Composition Analysis') {
-      steps {
-         sh 'rm owasp* || true'
-         sh 'wget "https://raw.githubusercontent.com/nutmag/dvja/master/owasp-dependency-check.sh" '
-         sh 'chmod +x owasp-dependency-check.sh'
-         sh 'bash owasp-dependency-check.sh'
-        
-      }
-    }
+	stage ('OWASP Dependency-Check Vulnerabilities') {
+            steps {
+                dependencyCheck additionalArguments: 'scan = "https://github.com/nutmag/dvja.git" --format ALL', odcInstallation: 'Dependency-check 5.3.2'
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+            }
+        }
+	  
     stage ('SAST') {
       steps {
         withSonarQubeEnv('sonar') {
